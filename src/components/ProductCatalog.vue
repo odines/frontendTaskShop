@@ -24,7 +24,6 @@ const { productsByCategoriesMap } = storeToRefs(catalogStore);
 
 <style module lang="scss">
 .container {
-  padding: 20px;
   display: grid;
   row-gap: 24px;
   align-self: flex-start;
@@ -45,8 +44,9 @@ const { productsByCategoriesMap } = storeToRefs(catalogStore);
 }
 
 .categoryName {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 600;
+  align-self: center;
 }
 
 .productsContainer {

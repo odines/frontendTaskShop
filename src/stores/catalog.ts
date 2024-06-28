@@ -47,5 +47,6 @@ export const useCatalogStore = defineStore('catalog', () => {
   return {
     loadProducts,
     productsByCategoriesMap,
+    productsList,
   };
 });

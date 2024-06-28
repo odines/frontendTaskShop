@@ -1,35 +1,57 @@
 <template>
-  <div :class="$style.container">
-    <div :class="$style.productName">{{ `${product.displayName} (${product.count})` }}</div>
+  <button :class="$style.container" @click="handleProductClick">
+    <div :class="$style.productName">{{ `${product.displayName} (${currentCount})` }}</div>
     <div :class="$style.price">{{ priceInRub }}</div>
-  </div>
+  </button>
 </template>
 
 <script setup lang="ts">
 import type { ProductInfo } from '@/types';
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
+import { getFormattedPrice } from '@/utils.ts/price';
+import { useCartStore } from '@/stores/cart';
+import { storeToRefs } from 'pinia';
 
 type Props = { product: ProductInfo };
 
+const cartStore = useCartStore();
+const { cartItems } = storeToRefs(cartStore);
+
 const props = defineProps<Props>();
 
-const priceInRub = computed<string>(() => {
-  return `${props.product.localPrice.toFixed(2)} ₽`;
+const currentCount = computed<number>(() => {
+  const cartItem = cartItems.value.find((item) => item.id === props.product.id);
+
+  if (cartItem === undefined) {
+    return props.product.count;
+  }
+
+  return props.product.count - cartItem.count;
 });
 
-watch(
-  () => props.product.price,
-  (prevValue, currentValue) => {
-    console.log('PRICE CHANGED!!!!!!', prevValue, currentValue);
-  },
-);
+const isDisabled = computed(() => currentCount.value <= 0);
+
+const handleProductClick = () => {
+  if (isDisabled.value) {
+    return;
+  }
+
+  cartStore.addToCart(props.product.id, 1);
+};
+
+const priceInRub = computed<string>(() => {
+  return getFormattedPrice(props.product.localPrice);
+});
 </script>
 
 <style module lang="scss">
 .container {
   padding: 10px;
   display: flex;
-  border: 1px solid black;
+  background-color: white;
+  text-align: left;
+  border: 1px solid #ddd;
+  border-radius: 8px;
   column-gap: 10px;
   align-self: flex-start;
   justify-content: space-between;
@@ -38,6 +60,7 @@ watch(
 
   &:hover {
     background-color: #f0f0f0;
+    box-shadow: 0 0 14px #00000008, 0 20px 40px #0000000d;
   }
 }
 
