@@ -9,7 +9,7 @@
       </button>
     </div>
     <div :class="$style.price">{{ formattedPrice }}</div>
-    <div @click="removeProduct" :class="$style.remove">Удалить</div>
+    <div @click="removeProduct" :class="$style.remove">X</div>
   </div>
 </template>
 
@@ -58,8 +58,8 @@ const setProductCount = (count: number) => {
   background-color: white;
   padding: 20px 15px;
   display: grid;
-  gap: 40px;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 20px;
+  grid-template-columns: 2fr 1fr 1fr 20px;
   align-items: center;
   border-bottom: 1px solid #ddd;
 
@@ -83,6 +83,7 @@ const setProductCount = (count: number) => {
   font-size: 16px;
   font-weight: 600;
   border-radius: 8px;
+  color: black;
   border: none;
   cursor: pointer;
 

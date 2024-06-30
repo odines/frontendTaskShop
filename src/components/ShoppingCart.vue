@@ -61,8 +61,8 @@ const cartTotalFormatted = computed(() => `Сумма заказа: ${getFormatt
 .cartHeader {
   padding: 20px 0;
   display: grid;
-  gap: 40px;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 20px;
+  grid-template-columns: 2fr 1fr 1fr 20px;
   align-items: center;
   border-bottom: 1px solid #ddd;
 

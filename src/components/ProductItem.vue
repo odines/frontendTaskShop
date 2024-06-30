@@ -83,6 +83,7 @@ watch(
   transition: background-color 0.2s ease;
   cursor: pointer;
   align-items: center;
+  color: black;
 
   &:hover#{&}:not(:disabled) {
     background-color: #f0f0f0;
