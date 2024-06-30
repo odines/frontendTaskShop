@@ -8,7 +8,7 @@
         +
       </button>
     </div>
-    <div>{{ formattedPrice }}</div>
+    <div :class="$style.price">{{ formattedPrice }}</div>
     <div @click="removeProduct" :class="$style.remove">Удалить</div>
   </div>
 </template>
@@ -19,7 +19,7 @@ import { useCatalogStore } from '@/stores/catalog';
 import type { CartItem } from '@/types';
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
-import { getFormattedPrice } from '@/utils.ts/price';
+import { getFormattedPrice } from '@/utils/price';
 
 type Props = CartItem & { index: number };
 const props = defineProps<Props>();
@@ -28,7 +28,6 @@ const catalogStore = useCatalogStore();
 const { productsList } = storeToRefs(catalogStore);
 
 const cartStore = useCartStore();
-
 const { cartItems } = storeToRefs(cartStore);
 
 const currentProductInfo = computed(() => {
@@ -57,12 +56,16 @@ const setProductCount = (count: number) => {
 <style module lang="scss">
 .container {
   background-color: white;
-  border-radius: 16px;
-  padding: 20px;
+  padding: 20px 15px;
   display: grid;
   gap: 40px;
   grid-template-columns: 2fr 1fr 1fr 1fr;
   align-items: center;
+  border-bottom: 1px solid #ddd;
+
+  &:last-child {
+    border: none;
+  }
 }
 
 .remove {
@@ -96,5 +99,9 @@ const setProductCount = (count: number) => {
   display: flex;
   column-gap: 5px;
   align-items: center;
+}
+
+.price {
+  font-weight: 600;
 }
 </style>

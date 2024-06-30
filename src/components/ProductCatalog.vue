@@ -25,37 +25,39 @@ const { productsByCategoriesMap } = storeToRefs(catalogStore);
 <style module lang="scss">
 .container {
   display: grid;
-  row-gap: 24px;
-  align-self: flex-start;
+  gap: 20px;
 
   @include display-after(sm) {
-    row-gap: 40px;
+    grid-template-columns: 1fr 1fr;
+    align-items: flex-start;
   }
 }
 
 .categoryContainer {
   display: grid;
-  row-gap: 16px;
-
-  @include display-after(sm) {
-    grid-template-columns: 20% 1fr;
-    column-gap: 30px;
-  }
+  gap: 5px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
 .categoryName {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 600;
   align-self: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+  background-color: #f5f5f5;
 }
 
 .productsContainer {
   display: grid;
-  row-gap: 20px;
+  gap: 5px;
+  padding: 5px;
 
   @include display-after(sm) {
     grid-template-columns: 1fr 1fr;
-    column-gap: 30px;
   }
 }
 </style>

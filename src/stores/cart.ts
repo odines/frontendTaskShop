@@ -8,7 +8,21 @@ export const useCartStore = defineStore('cart', () => {
   const catalogStore = useCatalogStore();
   const { productsList } = storeToRefs(catalogStore);
 
+  /**
+   * array of products ids with quantity
+   */
   const cartItems = ref<CartItem[]>([]);
+
+  /**
+   * Calculates the cart total
+   */
+  const cartTotal = computed(() => {
+    return cartItems.value.reduce((result, cartItem) => {
+      const price = productsList.value.find((productInfo) => productInfo.id === cartItem.id)?.localPrice || 0;
+
+      return result + price * cartItem.count;
+    }, 0);
+  });
 
   const addToCart = (id: CartItem['id'], count: CartItem['count']) => {
     const indexOfCartItem = cartItems.value.findIndex((item) => item.id === id);
@@ -20,14 +34,6 @@ export const useCartStore = defineStore('cart', () => {
 
     cartItems.value[indexOfCartItem].count += count;
   };
-
-  const cartTotal = computed(() => {
-    return cartItems.value.reduce((result, currentCartItem) => {
-      const price = productsList.value.find((productItem) => productItem.id === currentCartItem.id)?.localPrice || 0;
-
-      return result + price * currentCartItem.count;
-    }, 0);
-  });
 
   const removeProduct = (id: CartItem['id']) => {
     const productIndex = cartItems.value.findIndex((item) => item.id === id);
