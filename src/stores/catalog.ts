@@ -61,7 +61,7 @@ export const useCatalogStore = defineStore('catalog', () => {
   watch(currentCurrency, (currencyRate) => {
     productsList.value.forEach((product, index) => {
       // get random price
-      const updatedPrice = parseFloat((product.price * Math.random()).toFixed(2));
+      const updatedPrice = parseFloat(((product.price + 1) * Math.random()).toFixed(2));
       const updatedLocalPrice = updatedPrice * currencyRate;
 
       productsList.value[index] = { ...productsList.value[index], price: updatedPrice, localPrice: updatedLocalPrice };

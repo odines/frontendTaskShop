@@ -12,7 +12,7 @@ export const getProducts = (): RawProduct[] => {
 
 /**
  * Gets product names from json
- * @returns
+ * @returns RawProductsGroupMap
  */
 export const getNames = (): RawProductsGroupMap => {
   return namesData;
